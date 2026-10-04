@@ -1,0 +1,7 @@
+#Sun Oct 04 14:44:45 GMT-03:00 2026
+base.0=C\:\\Users\\WIN_10\\Desktop\\CampoMinadoAndroid\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.1=C\:\\Users\\WIN_10\\Desktop\\CampoMinadoAndroid\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+path.0=0/classes.dex
+path.1=1/classes.dex
+renamed.0=classes.dex
+renamed.1=classes2.dex

@@ -1,0 +1,47 @@
+CAMPO MINADO — ANDROID
+
+O APK fornecido pode ser instalado diretamente em Android 6.0 ou superior.
+Abra o APK no celular e autorize a instalação por esse aplicativo se o Android solicitar.
+O app funciona offline e não solicita permissões de rede, câmera ou arquivos.
+
+REGRAS
+Tabuleiro 10 x 10 com 15 minas. A primeira jogada é segura.
+O cronômetro começa no primeiro toque e para ao vencer ou perder.
+Ao sair do aplicativo, o cronômetro pausa. Ao voltar, a partida é recuperada.
+O botão Cliques mostra automaticamente o total de toques no tabuleiro.
+Toques em casas já abertas contam; casas abertas automaticamente não contam.
+Tocar no botão Cliques exibe os detalhes do contador, sem aumentá-lo.
+Novo jogo zera o tempo e os cliques.
+Zeros abrem as casas vizinhas e os números na borda da região vazia.
+A vitória acontece ao abrir as 85 casas seguras. Uma mina encerra a partida.
+
+CÓDIGO
+app/src/main/java/br/com/gustavo/campominado/Game.java: regras e geração.
+app/src/main/java/br/com/gustavo/campominado/MainActivity.java: interface, tempo e armazenamento.
+
+PARA COMPILAR NO ANDROID STUDIO
+Abra esta pasta como projeto. Use JDK 17, Android SDK 35 e Gradle 8.9.
+O projeto usa o plugin Android 8.7.3. Não inclui o Gradle Wrapper.
+Com Gradle 8.9 instalado, execute: gradle assembleDebug
+O APK estará em app/build/outputs/apk/debug/app-debug.apk.
+
+VALIDAÇÃO
+O APK entregue foi compilado e sua assinatura foi verificada.
+Os testes da lógica cobrem a quantidade de minas, contagem de vizinhos,
+primeira jogada segura, propagação dos zeros, vitória, derrota e cliques.
+A interface não foi executada em um aparelho ou emulador neste ambiente.
+
+A chave teste.jks é apenas para este protótipo (senha: android).
+Ela permite gerar atualizações compatíveis com a instalação de teste.
+Não utilize essa chave em aplicativos de produção.
+
+VERSÃO 1.1 — RANKING
+O botão Ranking mostra até 10 vitórias, em ordem do menor tempo para o maior.
+Com 1 a 9 vitórias, todas são guardadas. A partir da 11ª, só ficam as 10 melhores.
+Cada resultado contém o tempo com milissegundos e a data/hora local da vitória.
+Empates de tempo são ordenados pela data mais antiga.
+Derrotas e partidas abandonadas não entram. Novo jogo não apaga o ranking.
+O ranking é local, salvo junto da partida e mantido ao fechar ou atualizar o app.
+Instale a atualização sobre a versão anterior, sem desinstalar.
+Resultados anteriores à versão 1.1 não são recuperados retroativamente.
+Ranking.java contém a ordenação, o limite de 10 e a serialização dos resultados.

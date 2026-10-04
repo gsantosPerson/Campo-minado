@@ -1,0 +1,46 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="br.com.gustavo.campominado"
+4    android:versionCode="2"
+5    android:versionName="1.1" >
+6
+7    <uses-sdk
+7-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:5-74
+8        android:minSdkVersion="23"
+8-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:15-41
+9        android:targetSdkVersion="35" />
+9-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:42-71
+10
+11    <application
+11-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:5-10:19
+12        android:allowBackup="false"
+12-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:105-132
+13        android:debuggable="true"
+14        android:extractNativeLibs="false"
+15        android:label="Campo Minado"
+15-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:18-46
+16        android:supportsRtl="true"
+16-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:133-159
+17        android:testOnly="true"
+18        android:theme="@android:style/Theme.Material.NoActionBar" >
+18-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:47-104
+19        <activity
+19-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:4:9-9:20
+20            android:name="br.com.gustavo.campominado.MainActivity"
+20-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:4:19-47
+21            android:exported="true" >
+21-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:4:48-71
+22            <intent-filter>
+22-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:5:13-8:29
+23                <action android:name="android.intent.action.MAIN" />
+23-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:6:17-69
+23-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:6:25-66
+24
+25                <category android:name="android.intent.category.LAUNCHER" />
+25-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:7:17-77
+25-->C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:7:27-74
+26            </intent-filter>
+27        </activity>
+28    </application>
+29
+30</manifest>
