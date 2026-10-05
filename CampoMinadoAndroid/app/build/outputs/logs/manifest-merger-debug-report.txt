@@ -1,55 +1,55 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:1:1-11:12
-INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:1:1-11:12
-INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:1:1-11:12
-INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:1:1-11:12
+ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:1:1-11:12
+INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:1:1-11:12
+INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:1:1-11:12
+INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:1:1-11:12
 	package
-		INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml
+		INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml
 	android:versionName
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:1:94-119
-		INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:1:94-119
+		INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:1:11-69
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:1:11-69
 	android:versionCode
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:1:70-93
-		INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:1:70-93
+		INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml
 uses-sdk
-ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:5-74
-INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:5-74
-INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:5-74
+ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:2:5-74
+INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:2:5-74
+INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:2:5-74
 	android:targetSdkVersion
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:42-71
-		INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:2:42-71
+		INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:2:15-41
-		INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:2:15-41
+		INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml
 application
-ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:5-10:19
-INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:5-10:19
+ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:3:5-10:19
+INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:3:5-10:19
 	android:extractNativeLibs
-		INJECTED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml
+		INJECTED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml
 	android:supportsRtl
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:133-159
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:3:133-159
 	android:label
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:18-46
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:3:18-46
 	android:allowBackup
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:105-132
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:3:105-132
 	android:theme
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:3:47-104
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:3:47-104
 activity#br.com.gustavo.campominado.MainActivity
-ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:4:9-9:20
+ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:4:9-9:20
 	android:exported
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:4:48-71
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:4:48-71
 	android:name
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:4:19-47
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:4:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:5:13-8:29
+ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:5:13-8:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:6:17-69
+ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:6:17-69
 	android:name
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:6:25-66
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:6:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:7:17-77
+ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:7:17-77
 	android:name
-		ADDED from C:\Users\WIN_10\Desktop\CampoMinadoAndroid\app\src\main\AndroidManifest.xml:7:27-74
+		ADDED from /home/aluno/Downloads/Campo-minado/CampoMinadoAndroid/app/src/main/AndroidManifest.xml:7:27-74

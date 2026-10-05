@@ -15,6 +15,9 @@ import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.text.InputType;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -29,7 +32,9 @@ public class MainActivity extends Activity {
     private long elapsed, runningSince;
     private boolean running;
     private final Handler handler = new Handler(Looper.getMainLooper());
-    private TextView timer, status, progress;
+    private TextView timer, status, progress, subtitle;
+    private String difficulty = "Fácil";
+    private HorizontalScrollView boardScroll;
     private Button clicks;
     private Board board;
     private final int navy = Color.rgb(14, 23, 40);
@@ -62,7 +67,7 @@ public class MainActivity extends Activity {
         root.requestApplyInsets();
         root.addView(label("CAMPO MINADO", 13, mint));
         root.addView(label("Cada toque conta.", 29, Color.WHITE));
-        TextView subtitle = label("10 × 10 casas  •  15 minas", 15, Color.LTGRAY);
+        subtitle = label("10 × 10 casas  •  15 minas", 15, Color.LTGRAY);
         subtitle.setPadding(0, dp(6), 0, dp(20));
         root.addView(subtitle);
         timer = label("00:00", 40, Color.WHITE);
@@ -73,7 +78,12 @@ public class MainActivity extends Activity {
         status.setPadding(0, dp(12), 0, dp(12));
         root.addView(status);
         board = new Board();
-        root.addView(board, new LinearLayout.LayoutParams(-1, -2));
+        boardScroll = new HorizontalScrollView(this);
+        boardScroll.addView(board, new HorizontalScrollView.LayoutParams(-2, -2));
+        root.addView(boardScroll, new LinearLayout.LayoutParams(-1, -2));
+        Button difficultyButton = button("Escolher dificuldade", false);
+        difficultyButton.setOnClickListener(v -> chooseDifficulty());
+        root.addView(difficultyButton, new LinearLayout.LayoutParams(-1, dp(52)));
         progress = label("0 de 85 casas seguras", 13, Color.LTGRAY);
         progress.setPadding(0, dp(10), 0, dp(16));
         root.addView(progress);
@@ -101,10 +111,93 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams rankingLayout = new LinearLayout.LayoutParams(-1, dp(52));
         rankingLayout.setMargins(0, dp(10), 0, 0);
         root.addView(rankingButton, rankingLayout);
-        TextView tip = label("A primeira jogada é segura. Os números indicam minas nas 8 casas vizinhas. Zeros abrem a região ao redor. O tempo pausa ao sair do app.", 13, Color.LTGRAY);
+        TextView tip = label("A primeira jogada é segura. Os números indicam minas nas 8 casas vizinhas. Zeros abrem a região ao redor. O tempo pausa ao sair do app. Arraste para navegar nos tabuleiros maiores.", 13, Color.LTGRAY);
         tip.setPadding(0, dp(18), 0, dp(8));
         root.addView(tip);
         update();
+    }
+
+    private String rankingKey() {
+        return "ranking_" + difficulty + "_" + game.linhas + "_" + game.colunas + "_" + game.quantidadeMinas;
+    }
+
+    private void loadRanking() {
+        SharedPreferences p = getSharedPreferences("game", MODE_PRIVATE);
+        String fallback = difficulty.equals("Fácil") && game.linhas == 10
+                && game.colunas == 10 && game.quantidadeMinas == 15
+                ? p.getString("ranking", "") : "";
+        ranking = Ranking.decode(p.getString(rankingKey(), fallback));
+    }
+
+    private void chooseDifficulty() {
+        String[] options = {"Fácil — 10 × 10, 15 minas", "Médio — 16 × 16, 46 minas",
+                "Difícil — 30 × 16, 100 minas", "Personalizado"};
+        new AlertDialog.Builder(this).setTitle("Escolha a dificuldade")
+                .setItems(options, (d, choice) -> {
+                    if (choice == 0) confirmGame(10, 10, 15, "Fácil");
+                    else if (choice == 1) confirmGame(16, 16, 46, "Médio");
+                    else if (choice == 2) confirmGame(30, 16, 100, "Difícil");
+                    else customGame();
+                }).show();
+    }
+
+    private void confirmGame(int rows, int columns, int mines, String level) {
+        if (game.started && !game.ended) {
+            new AlertDialog.Builder(this).setTitle("Trocar de dificuldade?")
+                    .setMessage("A partida atual será encerrada. O ranking será preservado.")
+                    .setNegativeButton("Cancelar", null)
+                    .setPositiveButton("Começar", (d, w) -> startGame(rows, columns, mines, level)).show();
+        } else startGame(rows, columns, mines, level);
+    }
+
+    private void startGame(int rows, int columns, int mines, String level) {
+        stopClock();
+        save();
+        game = new Game(rows, columns, mines);
+        difficulty = level;
+        elapsed = 0;
+        scoreRecorded = false;
+        loadRanking();
+        board.requestLayout();
+        boardScroll.scrollTo(0, 0);
+        update();
+        save();
+    }
+
+    private void customGame() {
+        LinearLayout fields = new LinearLayout(this);
+        fields.setOrientation(LinearLayout.VERTICAL);
+        fields.setPadding(dp(20), dp(12), dp(20), dp(12));
+        EditText rows = new EditText(this);
+        EditText columns = new EditText(this);
+        EditText mines = new EditText(this);
+        rows.setHint("Linhas (2 a 40)");
+        columns.setHint("Colunas (2 a 40)");
+        mines.setHint("Quantidade de bombas");
+        rows.setInputType(InputType.TYPE_CLASS_NUMBER);
+        columns.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mines.setInputType(InputType.TYPE_CLASS_NUMBER);
+        fields.addView(rows);
+        fields.addView(columns);
+        fields.addView(mines);
+        AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Personalizado")
+                .setView(fields).setNegativeButton("Cancelar", null)
+                .setPositiveButton("Começar", null).create();
+        dialog.setOnShowListener(d -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            try {
+                int r = Integer.parseInt(rows.getText().toString().trim());
+                int c = Integer.parseInt(columns.getText().toString().trim());
+                int m = Integer.parseInt(mines.getText().toString().trim());
+                if (r < 2 || r > 40) { rows.setError("Use de 2 a 40 linhas."); return; }
+                if (c < 2 || c > 40) { columns.setError("Use de 2 a 40 colunas."); return; }
+                if (m < 1 || m >= r * c) { mines.setError("Use de 1 a " + (r * c - 1) + " bombas."); return; }
+                dialog.dismiss();
+                confirmGame(r, c, m, "Personalizado");
+            } catch (NumberFormatException ex) {
+                mines.setError("Preencha os três campos com números inteiros.");
+            }
+        }));
+        dialog.show();
     }
 
     private void showRanking() {
@@ -128,7 +221,7 @@ public class MainActivity extends Activity {
         }
         ScrollView scroll = new ScrollView(this);
         scroll.addView(content);
-        new AlertDialog.Builder(this).setTitle("Ranking — melhores tempos")
+        new AlertDialog.Builder(this).setTitle("Ranking — " + difficulty)
                 .setView(scroll).setPositiveButton("Fechar", null).show();
     }
 
@@ -165,18 +258,16 @@ public class MainActivity extends Activity {
         handler.removeCallbacks(ticker);
     }
     private void reset() {
-        stopClock();
-        elapsed = 0;
-        scoreRecorded = false;
-        game = new Game();
-        update();
-        save();
+        startGame(game.linhas, game.colunas, game.quantidadeMinas, difficulty);
     }
     private void update() {
         long seconds = time() / 1000;
         timer.setText(String.format(Locale.ROOT, "%02d:%02d", seconds / 60, seconds % 60));
         clicks.setText("Cliques: " + game.clicks);
-        progress.setText(game.revealed + " de 85 casas seguras");
+        subtitle.setText(difficulty + " • " + game.linhas + " × " + game.colunas
+                + " casas • " + game.quantidadeMinas + " minas");
+        progress.setText(game.revealed + " de " + (game.cells.length - game.quantidadeMinas) + " casas seguras");
+        board.setContentDescription("Tabuleiro com " + game.linhas + " linhas e " + game.colunas + " colunas");
         status.setText(game.ended ? (game.won ? "Você venceu! Todas as casas seguras abertas." : "Você encontrou uma mina. Tente novamente!")
                 : game.started ? "Encontre as casas seguras." : "Toque em uma casa para começar.");
         board.invalidate();
@@ -186,7 +277,7 @@ public class MainActivity extends Activity {
     protected void onDestroy() { handler.removeCallbacks(ticker); super.onDestroy(); }
     private void save() {
         StringBuilder cells = new StringBuilder(), opened = new StringBuilder();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < game.cells.length; i++) {
             cells.append(game.cells[i]).append(',');
             opened.append(game.open[i] ? '1' : '0');
         }
@@ -194,17 +285,26 @@ public class MainActivity extends Activity {
                 .putString("open", opened.toString()).putInt("clicks", game.clicks)
                 .putInt("revealed", game.revealed).putBoolean("started", game.started)
                 .putBoolean("ended", game.ended).putBoolean("won", game.won).putLong("elapsed", time())
-                .putString("ranking", ranking.encode()).putBoolean("scoreRecorded", scoreRecorded).apply();
+                .putString(rankingKey(), ranking.encode())
+                .putInt("linhas", game.linhas).putInt("colunas", game.colunas)
+                .putInt("minas", game.quantidadeMinas).putString("difficulty", difficulty).putBoolean("scoreRecorded", scoreRecorded).apply();
     }
     private void restore() {
         SharedPreferences p = getSharedPreferences("game", MODE_PRIVATE);
-        ranking = Ranking.decode(p.getString("ranking", ""));
+        try {
+            game = new Game(p.getInt("linhas", 10), p.getInt("colunas", 10), p.getInt("minas", 15));
+            difficulty = p.getString("difficulty", "Fácil");
+        } catch (IllegalArgumentException ex) {
+            game = new Game();
+            difficulty = "Fácil";
+        }
+        loadRanking();
         scoreRecorded = p.getBoolean("scoreRecorded", p.getBoolean("ended", false));
         String[] cells = p.getString("cells", "").split(",");
         String opened = p.getString("open", "");
-        if (cells.length != 100 || opened.length() != 100) return;
+        if (cells.length != game.cells.length || opened.length() != game.cells.length) return;
         try {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < game.cells.length; i++) {
                 game.cells[i] = Integer.parseInt(cells[i]);
                 game.open[i] = opened.charAt(i) == '1';
             }
@@ -214,7 +314,7 @@ public class MainActivity extends Activity {
             game.ended = p.getBoolean("ended", false);
             game.won = p.getBoolean("won", false);
             elapsed = p.getLong("elapsed", 0);
-        } catch (RuntimeException ex) { game = new Game(); elapsed = 0; }
+        } catch (RuntimeException ex) { game = new Game(game.linhas, game.colunas, game.quantidadeMinas); elapsed = 0; scoreRecorded = false; }
     }
 
     private class Board extends View {
@@ -223,17 +323,18 @@ public class MainActivity extends Activity {
         private int selected = -1;
         Board() { super(MainActivity.this); setClickable(true); setContentDescription("Tabuleiro de Campo Minado, 10 linhas e 10 colunas"); }
         protected void onMeasure(int widthSpec, int heightSpec) {
-            int size = MeasureSpec.getSize(widthSpec);
-            setMeasuredDimension(size, size);
+            int available = getResources().getDisplayMetrics().widthPixels - dp(36);
+            int cell = Math.max(dp(32), available / game.colunas);
+            setMeasuredDimension(cell * game.colunas, cell * game.linhas);
         }
         protected void onDraw(Canvas canvas) {
-            float cell = getWidth() / 10f;
+            float cell = getWidth() / (float) game.colunas;
             paint.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
             paint.setTextSize(cell * .43f);
             paint.setTextAlign(Paint.Align.CENTER);
             int[] colors = {mint, Color.rgb(102, 180, 255), mint, Color.rgb(255, 162, 129), Color.rgb(198, 158, 255), Color.YELLOW, Color.CYAN, Color.WHITE, Color.LTGRAY};
-            for (int i = 0; i < 100; i++) {
-                float x = (i % 10) * cell, y = (i / 10) * cell;
+            for (int i = 0; i < game.cells.length; i++) {
+                float x = (i % game.colunas) * cell, y = (i / game.colunas) * cell;
                 boolean mine = game.cells[i] == -1 && (game.ended || game.open[i]);
                 paint.setColor(mine ? Color.rgb(163, 61, 72) : game.open[i]
                         ? (game.cells[i] == 0 ? Color.rgb(28, 69, 64) : Color.rgb(25, 38, 57)) : Color.rgb(47, 65, 88));
@@ -255,7 +356,7 @@ public class MainActivity extends Activity {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (Math.abs(event.getX() - downX) < dp(12) && Math.abs(event.getY() - downY) < dp(12)
                         && event.getX() >= 0 && event.getX() < getWidth() && event.getY() >= 0 && event.getY() < getHeight()) {
-                    selected = (int) (event.getY() / (getWidth() / 10f)) * 10 + (int) (event.getX() / (getWidth() / 10f));
+                    selected = (int) (event.getY() / (getWidth() / (float) game.colunas)) * game.colunas + (int) (event.getX() / (getWidth() / (float) game.colunas));
                     performClick();
                 }
                 return true;
